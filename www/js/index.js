@@ -12,17 +12,23 @@ var app = {
             function trimSuccess(filePath) {
                 console.log('trimSuccess, path: ' + filePath);
                 alert('trimSuccess, path: ' + filePath)
-                videoTrim.getVideoPreviewImg(filePath,
-                    function (url) {
-                        $("#videoImg").append("<img src='" + url + "' />");
-                        alert("即将播放剪辑后的短视频");
-                        videoTrim.play(filePath, function () { }, function () { });
-                    },
-                    function () {
-                        console.log('error');
-                        alert("error");
-                    }
-                );
+                var platform = device.platform;
+                if (platform.toLowerCase() == "android") {
+                    videoTrim.getVideoPreviewImg(filePath,
+                        function (url) {
+                            $("#videoImg").append("<img src='" + url + "' />");
+                            alert("即将播放剪辑后的短视频");
+                            videoTrim.play(filePath, function () { }, function () { });
+                        },
+                        function () {
+                            console.log('error');
+                            alert("error");
+                        }
+                    );
+                }
+                if (platform.toLowerCase() == "ios") {
+                    videoTrim.play(filePath, function () { }, function () { });
+                }
 
             }
             function trimFail(err) {
@@ -38,19 +44,23 @@ var app = {
             function trimSuccess(filePath) {
                 console.log('trimSuccess, path: ' + filePath);
                 alert('trimSuccess, path: ' + filePath)
-                videoTrim.trimVideo(filePath,function(){},function(){});
-                return;
-                videoTrim.getVideoPreviewImg(filePath,
-                    function (url) {
-                        $("#videoImg").append("<img src='" + url + "' />");
-                        alert("即将播放剪辑后的短视频");
-                        videoTrim.play(filePath, function () { }, function () { });
-                    },
-                    function () {
-                        console.log('error');
-                        alert("error");
-                    }
-                );
+                var platform = device.platform;
+                if (platform.toLowerCase() == "android") {
+                    videoTrim.getVideoPreviewImg(filePath,
+                        function (url) {
+                            $("#videoImg").append("<img src='" + url + "' />");
+                            alert("即将播放剪辑后的短视频");
+                            videoTrim.play(filePath, function () { }, function () { });
+                        },
+                        function () {
+                            console.log('error');
+                            alert("error");
+                        }
+                    );
+                } else {
+                    videoTrim.play(filePath, function () { }, function () { });
+                }
+
             }
             function trimFail(err) {
                 console.log('trimFail, err: ' + err);
